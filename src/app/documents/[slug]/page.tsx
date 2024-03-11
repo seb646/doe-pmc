@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const reqURL = 'https://pmc.srod.ca/wp-json/wp/v2';
 
-const Document = async ({ params }) => {
+const Document = async ({ params }: any) => {
   const req = await fetch(`${reqURL}/document?acf_format=standard&_fields=id,title,acf&slug=${params.slug}`);
   const documents = await req.json();
   const document = documents[0];
