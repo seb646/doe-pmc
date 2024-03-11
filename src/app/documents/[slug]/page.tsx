@@ -65,3 +65,4 @@ const Document = async ({ params }: any) => {
 }
 
 export default Document;
+export const runtime = 'edge';
