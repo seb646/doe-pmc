@@ -4,9 +4,8 @@ import Image from "next/image";
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-const Nav = async ({}) => {
+const Nav = () => {
   const pathname = usePathname()
-  console.log(pathname)
   return (
     <>
     <div className="relative z-50 hidden" role="dialog" aria-modal="true">
