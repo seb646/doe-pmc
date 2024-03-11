@@ -34,7 +34,7 @@ const Documents = async () => {
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
-                {documents.map(document => (
+                {documents.map((document: any) => (
                     <tr className="hover:bg-gray-700/10">
                       <td className="py-4 pl-4 pr-8 sm:pl-6 lg:pl-8">
                           <div className="flex items-center gap-x-4">
