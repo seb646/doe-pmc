@@ -1,42 +1,63 @@
+'use client'
+
+import React, { useState, useEffect } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
 
 const Studies = () => {
+  const [activeSection, setActiveSection] = useState('');
+
+  useEffect(() => {
+    const sections = ['overview', 'introduction', 'critical-context', 'methodology', 'operational-review', 'incidents', 'conclusion', 'references'];
+  
+    const handleScroll = () => {
+      let currentSection = '';
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
+          const isInViewport = rect.top < viewportHeight && rect.bottom > 0;
+  
+          // Check if the section is at least partially in the viewport and adjust logic if needed
+          if (isInViewport) {
+            // Enhanced check: consider a section active if its top is passed the middle of the screen
+            // or if the section's bottom is above the middle but the section is still partly visible.
+            if ((rect.top <= viewportHeight / 2 && rect.bottom >= viewportHeight / 2) || (rect.top < viewportHeight && rect.bottom > viewportHeight / 2)) {
+              currentSection = section;
+              break; // Exit the loop once the active section is found
+            }
+          }
+        }
+      }
+  
+      setActiveSection(currentSection);
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call to set section on load
+  
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);  
 
   return (
     <>
-        <main>
-        <nav className="sticky top-0 z-40 bg-gray-900 flex overflow-x-auto border-b border-white/10 py-5 border-white/10">
-              <div >
-                <ul role="list" className="flex min-w-full justify-start flex-none gap-x-6 px-4 text-sm font-semibold leading-6 text-gray-400 sm:px-6 lg:px-8">
-                  <li>
-                    <Link href="#top" className="text-white">Overview</Link>
-                  </li>
-                  <li>
-                    <Link href="#introduction" className="">Introduction</Link>
-                  </li>
-                  <li>
-                    <Link href="#critical-context" >Critical Context</Link>
-                  </li>
-                  <li>
-                    <Link href="#methodology" className="">Methodology</Link>
-                  </li>
-                  <li>
-                    <Link href="#operational-review" className="">Operational Review</Link>
-                  </li>
-                  <li>
-                    <Link href="#incidents" className="">Incidents</Link>
-                  </li>
-                  <li>
-                    <Link href="#conclusion" className="">Conclusion</Link>
-                  </li>
-                  <li>
-                    <Link href="#references" className="">References</Link>
-                  </li>
-                </ul>
-                </div>
-            </nav>
-            <header>
+      <main>
+        <nav className="hidden sticky top-0 z-40 bg-gray-900 lg:flex overflow-x-auto border-b border-white/10 py-5 border-white/10">
+          <div>
+            <ul role="list" className="flex min-w-full justify-start flex-none gap-x-6 px-4 text-sm font-semibold leading-6 text-gray-400 sm:px-6 lg:px-8">
+              {/* <li>
+                <Link href="#top" className={activeSection === '' ? 'text-white' : ''}>Overview</Link>
+              </li> */}
+              {['overview', 'introduction', 'critical-context', 'methodology', 'operational-review', 'incidents', 'conclusion', 'references'].map((section) => (
+                <li key={section}>
+                  <Link href={`#${section}`} className={activeSection === section ? 'text-white' : ''}>{section.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
+            <header className="content-section scroll-mt-7" id="overview">
                 <div className="flex flex-col items-start justify-between gap-x-8 gap-y-4 bg-gray-700/10 px-4 py-14 sm:flex-row sm:items-center sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto">
                         <h1 className="flex mb-4 text-4xl text-white font-bold">Case Study: Federal Protective Forces (FPF)</h1>
@@ -46,8 +67,8 @@ const Studies = () => {
                 </div>
             </header>
 
-            <div className="border-t border-white/10 py-14 space-y-14">
-              <div className="max-w-4xl mx-auto" id="introduction">
+            <div className="border-t border-white/10 py-14 space-y-14 px-4 sm:px-6 lg:px-8">
+              <div className="max-w-4xl mx-auto scroll-mt-24" id="introduction">
                         <h2 className="flex mb-4 text-2xl text-white font-bold">Introduction</h2>
                         <div className="mt-2 text-gray-400">Since the attacks on September 11, 2001, the United States committed to and engaged in a Global War on Terror to dismantle militant terrorist networks around the world. This engagement, although not amounting to an official declaration of war against any one nation, spans over two decades and saw an outpour of funding in troops and technology. Joining the likes of the internet and GPS, private military contractors (PMCs), who were used to augment overseas military forces and provide a deniable asset to U.S. overseas operations, have permeated domestic, civilian life. The first notable domestic emergence of PMCs was Hurricane Katrina, where military-trained employees of Blackwater arrived in New Orleans to augment the federal and local government’s response and recovery efforts. Blackwater troops were seen patrolling the streets of New Orleans, enforcing laws and purportedly maintaining order with no mandate from any government agency (Scahill, 2007). These soldiers, fresh from overseas deployments where they fought enemy combatants on the battlefield, brought their military tactics, rhetoric, and mindset to the civilian relief operation. This operation served as a demonstration of PMC’s value in domestic operations.</div>
 
@@ -55,32 +76,32 @@ const Studies = () => {
 
                         <div className="mt-4 text-gray-400">This paper reviews the DOE’s Federal Protective Forces, outlining their operational structure, legal authority, tactical and law enforcement training, as well as the companies contracted to provide these services. It investigates incidents where contractors proved detrimental to the agency’s mission by abusing alcohol while on duty, purchasing and selling illegal firearms, and engaging in misconduct that jeopardized the safety of the nation’s most deadly weapon. As one of the largest and most well-armed permanent private military forces employed by the federal government, the FPF serves as a useful case study to examine and critique the government’s overall paramilitary augmentation of civilian operations. It provides insight into how PMCs migrate from overseas combat missions to domestic operations, how federal agencies negotiate contracts with PMC companies, and how private contractors receive law enforcement credentials rivaling the authority of the F.B.I. and U.S. Marshals Service. Ultimately, this paper demonstrates how PMCs are incompatible with civilian law enforcement duties and echoes calls from Congress to federalize the agency.</div>
                 </div>
-                <div className="max-w-4xl mx-auto" id="critical-context">
+                <div className="max-w-4xl mx-auto scroll-mt-24" id="critical-context">
                         <h2 className="flex mb-4 text-2xl text-white font-bold">Critical Context</h2>
                         <div className="mt-2 text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non dolor augue. Mauris nulla ex, commodo nec varius a, molestie non leo. Duis nec urna tortor. Phasellus id neque sed sem pharetra bibendum. Proin vitae ante eget leo tristique efficitur. Aenean varius magna nunc, quis viverra ante fermentum ac. Nunc aliquam tortor mauris. Nunc dapibus, mi in commodo accumsan, diam diam tempor sem, vitae fringilla orci sapien eget nulla. Quisque nec ligula eros. Fusce nibh odio, suscipit finibus fringilla id, cursus non nibh. Cras id sem erat. Etiam in tincidunt dui. Suspendisse interdum velit eu orci sollicitudin, eu molestie arcu dapibus. Cras rhoncus gravida nisi vel elementum. .</div>
                         <div className="mt-4 text-gray-400">Curabitur consequat sed mi in tincidunt. Sed volutpat ut orci eget tincidunt. Phasellus condimentum magna sit amet enim faucibus lobortis. Suspendisse nec scelerisque nibh. Donec scelerisque mi non sapien rutrum, non tempus ipsum euismod. Duis cursus dui nec lacinia pulvinar. Proin nunc tellus, sagittis fermentum porttitor ut, finibus vel augue. Duis et dapibus mi. Quisque vehicula, tortor in ultrices porta, sem erat gravida odio, eget ornare sem risus quis odio. Nam ultrices tristique augue, vitae auctor sapien aliquam nec. Curabitur odio tortor, scelerisque et tellus sed, congue condimentum libero. Mauris eleifend ligula enim. </div>
                 </div>
-                <div className="max-w-4xl mx-auto" id="methodology">
+                <div className="max-w-4xl mx-auto scroll-mt-24" id="methodology">
                         <h2 className="flex mb-4 text-2xl text-white font-bold">Methodology</h2>
                         <div className="mt-2 text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non dolor augue. Mauris nulla ex, commodo nec varius a, molestie non leo. Duis nec urna tortor. Phasellus id neque sed sem pharetra bibendum. Proin vitae ante eget leo tristique efficitur. Aenean varius magna nunc, quis viverra ante fermentum ac. Nunc aliquam tortor mauris. Nunc dapibus, mi in commodo accumsan, diam diam tempor sem, vitae fringilla orci sapien eget nulla. Quisque nec ligula eros. Fusce nibh odio, suscipit finibus fringilla id, cursus non nibh. Cras id sem erat. Etiam in tincidunt dui. Suspendisse interdum velit eu orci sollicitudin, eu molestie arcu dapibus. Cras rhoncus gravida nisi vel elementum. .</div>
                         <div className="mt-4 text-gray-400">Curabitur consequat sed mi in tincidunt. Sed volutpat ut orci eget tincidunt. Phasellus condimentum magna sit amet enim faucibus lobortis. Suspendisse nec scelerisque nibh. Donec scelerisque mi non sapien rutrum, non tempus ipsum euismod. Duis cursus dui nec lacinia pulvinar. Proin nunc tellus, sagittis fermentum porttitor ut, finibus vel augue. Duis et dapibus mi. Quisque vehicula, tortor in ultrices porta, sem erat gravida odio, eget ornare sem risus quis odio. Nam ultrices tristique augue, vitae auctor sapien aliquam nec. Curabitur odio tortor, scelerisque et tellus sed, congue condimentum libero. Mauris eleifend ligula enim. </div>
                 </div>
-                <div className="max-w-4xl mx-auto" id="operational-review">
+                <div className="max-w-4xl mx-auto scroll-mt-24" id="operational-review">
                         <h2 className="flex mb-4 text-2xl text-white font-bold">Operational Review</h2>
                         <div className="mt-2 text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non dolor augue. Mauris nulla ex, commodo nec varius a, molestie non leo. Duis nec urna tortor. Phasellus id neque sed sem pharetra bibendum. Proin vitae ante eget leo tristique efficitur. Aenean varius magna nunc, quis viverra ante fermentum ac. Nunc aliquam tortor mauris. Nunc dapibus, mi in commodo accumsan, diam diam tempor sem, vitae fringilla orci sapien eget nulla. Quisque nec ligula eros. Fusce nibh odio, suscipit finibus fringilla id, cursus non nibh. Cras id sem erat. Etiam in tincidunt dui. Suspendisse interdum velit eu orci sollicitudin, eu molestie arcu dapibus. Cras rhoncus gravida nisi vel elementum. .</div>
                         <div className="mt-4 text-gray-400">Curabitur consequat sed mi in tincidunt. Sed volutpat ut orci eget tincidunt. Phasellus condimentum magna sit amet enim faucibus lobortis. Suspendisse nec scelerisque nibh. Donec scelerisque mi non sapien rutrum, non tempus ipsum euismod. Duis cursus dui nec lacinia pulvinar. Proin nunc tellus, sagittis fermentum porttitor ut, finibus vel augue. Duis et dapibus mi. Quisque vehicula, tortor in ultrices porta, sem erat gravida odio, eget ornare sem risus quis odio. Nam ultrices tristique augue, vitae auctor sapien aliquam nec. Curabitur odio tortor, scelerisque et tellus sed, congue condimentum libero. Mauris eleifend ligula enim. </div>
                 </div>
-                <div className="max-w-4xl mx-auto" id="incidents">
+                <div className="max-w-4xl mx-auto scroll-mt-24" id="incidents">
                         <h2 className="flex mb-4 text-2xl text-white font-bold">Incidents</h2>
                         <div className="mt-2 text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non dolor augue. Mauris nulla ex, commodo nec varius a, molestie non leo. Duis nec urna tortor. Phasellus id neque sed sem pharetra bibendum. Proin vitae ante eget leo tristique efficitur. Aenean varius magna nunc, quis viverra ante fermentum ac. Nunc aliquam tortor mauris. Nunc dapibus, mi in commodo accumsan, diam diam tempor sem, vitae fringilla orci sapien eget nulla. Quisque nec ligula eros. Fusce nibh odio, suscipit finibus fringilla id, cursus non nibh. Cras id sem erat. Etiam in tincidunt dui. Suspendisse interdum velit eu orci sollicitudin, eu molestie arcu dapibus. Cras rhoncus gravida nisi vel elementum. .</div>
                         <div className="mt-4 text-gray-400">Curabitur consequat sed mi in tincidunt. Sed volutpat ut orci eget tincidunt. Phasellus condimentum magna sit amet enim faucibus lobortis. Suspendisse nec scelerisque nibh. Donec scelerisque mi non sapien rutrum, non tempus ipsum euismod. Duis cursus dui nec lacinia pulvinar. Proin nunc tellus, sagittis fermentum porttitor ut, finibus vel augue. Duis et dapibus mi. Quisque vehicula, tortor in ultrices porta, sem erat gravida odio, eget ornare sem risus quis odio. Nam ultrices tristique augue, vitae auctor sapien aliquam nec. Curabitur odio tortor, scelerisque et tellus sed, congue condimentum libero. Mauris eleifend ligula enim. </div>
                 </div>
-                <div className="max-w-4xl mx-auto" id="conclusion">
+                <div className="max-w-4xl mx-auto scroll-mt-24" id="conclusion">
                         <h2 className="flex mb-4 text-2xl text-white font-bold">Conclusion</h2>
                         <div className="mt-2 text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non dolor augue. Mauris nulla ex, commodo nec varius a, molestie non leo. Duis nec urna tortor. Phasellus id neque sed sem pharetra bibendum. Proin vitae ante eget leo tristique efficitur. Aenean varius magna nunc, quis viverra ante fermentum ac. Nunc aliquam tortor mauris. Nunc dapibus, mi in commodo accumsan, diam diam tempor sem, vitae fringilla orci sapien eget nulla. Quisque nec ligula eros. Fusce nibh odio, suscipit finibus fringilla id, cursus non nibh. Cras id sem erat. Etiam in tincidunt dui. Suspendisse interdum velit eu orci sollicitudin, eu molestie arcu dapibus. Cras rhoncus gravida nisi vel elementum. .</div>
                         <div className="mt-4 text-gray-400">Curabitur consequat sed mi in tincidunt. Sed volutpat ut orci eget tincidunt. Phasellus condimentum magna sit amet enim faucibus lobortis. Suspendisse nec scelerisque nibh. Donec scelerisque mi non sapien rutrum, non tempus ipsum euismod. Duis cursus dui nec lacinia pulvinar. Proin nunc tellus, sagittis fermentum porttitor ut, finibus vel augue. Duis et dapibus mi. Quisque vehicula, tortor in ultrices porta, sem erat gravida odio, eget ornare sem risus quis odio. Nam ultrices tristique augue, vitae auctor sapien aliquam nec. Curabitur odio tortor, scelerisque et tellus sed, congue condimentum libero. Mauris eleifend ligula enim. </div>
                 </div>
-                <div className="max-w-4xl mx-auto" id="references">
+                <div className="max-w-4xl mx-auto scroll-mt-24" id="references">
                         <h2 className="flex mb-4 text-2xl text-white font-bold">References</h2>
                         <div className="mt-2 text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non dolor augue. Mauris nulla ex, commodo nec varius a, molestie non leo. Duis nec urna tortor. Phasellus id neque sed sem pharetra bibendum. Proin vitae ante eget leo tristique efficitur. Aenean varius magna nunc, quis viverra ante fermentum ac. Nunc aliquam tortor mauris. Nunc dapibus, mi in commodo accumsan, diam diam tempor sem, vitae fringilla orci sapien eget nulla. Quisque nec ligula eros. Fusce nibh odio, suscipit finibus fringilla id, cursus non nibh. Cras id sem erat. Etiam in tincidunt dui. Suspendisse interdum velit eu orci sollicitudin, eu molestie arcu dapibus. Cras rhoncus gravida nisi vel elementum. .</div>
                         <div className="mt-4 text-gray-400">Curabitur consequat sed mi in tincidunt. Sed volutpat ut orci eget tincidunt. Phasellus condimentum magna sit amet enim faucibus lobortis. Suspendisse nec scelerisque nibh. Donec scelerisque mi non sapien rutrum, non tempus ipsum euismod. Duis cursus dui nec lacinia pulvinar. Proin nunc tellus, sagittis fermentum porttitor ut, finibus vel augue. Duis et dapibus mi. Quisque vehicula, tortor in ultrices porta, sem erat gravida odio, eget ornare sem risus quis odio. Nam ultrices tristique augue, vitae auctor sapien aliquam nec. Curabitur odio tortor, scelerisque et tellus sed, congue condimentum libero. Mauris eleifend ligula enim. </div>
