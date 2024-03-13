@@ -9,7 +9,7 @@ const Documents = async () => {
 
   return (
     <main>
-            <div className="sticky top-0 z-40 bg-gray-900 flex overflow-x-auto border-b border-white/10 py-5 border-white/10 gap-x-2 px-4 text-sm leading-6 text-gray-400 sm:px-6 lg:px-8">
+            <div className="hidden sticky top-0 z-40 bg-gray-900 xl:flex overflow-x-auto border-b border-white/10 py-5 border-white/10 gap-x-2 px-4 text-sm leading-6 text-gray-400 sm:px-6 lg:px-8">
                   <Link href="/documents" className="font-semibold hover:text-gray-200">Documents</Link> <span>/</span> Index
             </div>
             <header>
