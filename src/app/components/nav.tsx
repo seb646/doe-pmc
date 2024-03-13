@@ -1,20 +1,23 @@
 'use client'
 
+import * as React from "react"
 import Image from "next/image";
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const Nav = () => {
   const pathname = usePathname()
+  const [navbarOpen, setNavbarOpen] = React.useState(false)
   return (
     <>
-    <div className="relative z-50 hidden" role="dialog" aria-modal="true">
+        {navbarOpen ? (
+        <div className="relative z-50" role="dialog" aria-modal="true">
             <div className="fixed inset-0 bg-gray-900/80"></div>
 
             <div className="fixed inset-0 flex">
             <div className="relative mr-16 flex w-full max-w-xs flex-1">
                 <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
-                <button type="button" className="-m-2.5 p-2.5">
+                <button type="button" onClick={() => setNavbarOpen(!navbarOpen)} className="-m-2.5 p-2.5">
                     <span className="sr-only">Close sidebar</span>
                     <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -123,7 +126,9 @@ const Nav = () => {
             </div>
             </div>
         </div>
-
+        ) : (
+            <></>
+        )}
         <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
             <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black/10 px-6 ring-1 ring-white/5">
             <div className="flex text-white font-bold text-lg pt-10 flex gap-3 items-center">
@@ -223,6 +228,15 @@ const Nav = () => {
                 </ul>
             </nav>
             </div>
+        </div>
+
+        <div className="sticky xl:hidden top-0 z-40 bg-gray-900 flex overflow-x-auto border-b border-white/10 py-5 border-white/10 gap-x-2 px-4 text-sm leading-6 text-gray-400 sm:px-6 lg:px-8">
+            <button onClick={() => setNavbarOpen(!navbarOpen)} type="button" className="-m-2.5 p-2.5 text-white xl:hidden">
+                <span className="sr-only">Open sidebar</span>
+                <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
+                </svg>
+            </button>
         </div>
     </>
   );

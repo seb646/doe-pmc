@@ -19,13 +19,10 @@ const Studies = () => {
           const viewportHeight = window.innerHeight;
           const isInViewport = rect.top < viewportHeight && rect.bottom > 0;
   
-          // Check if the section is at least partially in the viewport and adjust logic if needed
           if (isInViewport) {
-            // Enhanced check: consider a section active if its top is passed the middle of the screen
-            // or if the section's bottom is above the middle but the section is still partly visible.
             if ((rect.top <= viewportHeight / 2 && rect.bottom >= viewportHeight / 2) || (rect.top < viewportHeight && rect.bottom > viewportHeight / 2)) {
               currentSection = section;
-              break; // Exit the loop once the active section is found
+              break;
             }
           }
         }
@@ -35,7 +32,7 @@ const Studies = () => {
     };
   
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial call to set section on load
+    handleScroll();
   
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);  
