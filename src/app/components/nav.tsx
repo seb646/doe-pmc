@@ -28,7 +28,7 @@ const Nav = () => {
                 <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 ring-1 ring-white/10">
                 <div className="flex text-white font-bold text-lg pt-10 flex gap-3 items-center">
                     <Image src="/logo.png" width={40} height={40} alt="Ouroboros Project logo" />
-                    <span>Ouroboros Project</span>
+                    <span>Facing the Fallout</span>
                 </div>
                 <nav className="flex flex-1 flex-col">
                     <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -133,7 +133,7 @@ const Nav = () => {
             <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black/10 px-6 ring-1 ring-white/5">
             <div className="flex text-white font-bold text-lg pt-10 flex gap-3 items-center">
                 <Image src="/logo.png" width={40} height={40} alt="Ouroboros Project logo" />
-                <span>Ouroboros Project</span>
+                <span>Facing the Fallout</span>
             </div>
             <nav className="flex flex-1 flex-col">
                 <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -238,7 +238,7 @@ const Nav = () => {
                 </svg>
             </button>
             <div className="flex text-white font-bold text-lg flex gap-3 items-center ml-2">
-                <span>Ouroboros Project</span>
+                <span>Facing the Fallout</span>
             </div>
         </div>
     </>
