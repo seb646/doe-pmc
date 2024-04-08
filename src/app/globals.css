@@ -36,3 +36,8 @@ body {
 .content-section{
   scroll-margin-top: 70px;
 }
+
+.hanging-indent {
+  padding-left: 22px ;
+  text-indent: -22px ;
+}

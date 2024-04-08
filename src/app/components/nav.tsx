@@ -66,17 +66,17 @@ const Nav = () => {
                         PMC Network Map
                         </Link>
                     </li>
-                    <li>
+                    {/* <li>
                         <Link href="/about" onClick={() => setNavbarOpen(!navbarOpen)} className="text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
                         <svg className="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
                         </svg>
                         About
                         </Link>
-                    </li>
+                    </li> */}
                     </ul>
                 </li>
-                <li>
+                {/* <li>
                     <div className="text-xs font-semibold leading-6 text-gray-400">Project links</div>
                     <ul role="list" className="-mx-2 mt-2 space-y-1">
                     <li>
@@ -110,7 +110,7 @@ const Nav = () => {
                         </Link>
                     </li>
                     </ul>
-                </li>
+                </li> */}
                 <li className="-mx-6 mt-auto">
                     <div className="text-gray-400 p-6 text-sm font-medium space-y-2">
                         <p>Created by <Link className="hover:text-white" href="https://srod.ca">Sebastian Rodriguez</Link></p>
@@ -171,17 +171,17 @@ const Nav = () => {
                         PMC Network Map
                         </Link>
                     </li>
-                    <li>
+                    {/* <li>
                         <Link href="/about" className={`text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold ${pathname === '/about' ? 'bg-gray-800 text-white' : ''}`}>
                         <svg className="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
                         </svg>
                         About
                         </Link>
-                    </li>
+                    </li> */}
                     </ul>
                 </li>
-                <li>
+                {/* <li>
                     <div className="text-xs font-semibold leading-6 text-gray-400">Project links</div>
                     <ul role="list" className="-mx-2 mt-2 space-y-1">
                     <li>
@@ -215,7 +215,7 @@ const Nav = () => {
                         </Link>
                     </li>
                     </ul>
-                </li>
+                </li> */}
                 <li className="-mx-6 mt-auto">
                     <div className="text-gray-400 p-6 text-sm font-medium space-y-2">
                         <p>Created by <Link className="hover:text-white" href="https://srod.ca">Sebastian Rodriguez</Link></p>
